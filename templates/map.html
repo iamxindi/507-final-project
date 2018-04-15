@@ -1,0 +1,29 @@
+<style>
+.error_msg{
+  color:red;
+}
+.emp{
+  color:blue;
+}
+</style>
+
+<h1>Welcome to UX job search - Streetview</h1>
+
+
+<form action="/street" method="POST">
+Enter a company name to see its streetview: <br>
+<input type="text" name="companyname" value="Enter Company Name"/>
+  <input type="submit" name="update" value="Update"/>
+</form>
+<p class = 'error_msg'>{{error_msg}}</p>
+
+<iframe
+  width="600"
+  height="450"
+  frameborder="0" style="border:0"
+  src="https://www.google.com/maps/embed/v1/streetview?key={{api_google}}&location={{lat}},{{lon}}
+  &heading=210"
+   allowfullscreen>
+</iframe>
+
+<p>You are at<p class = 'emp'>{{companyname}}</p></p>
