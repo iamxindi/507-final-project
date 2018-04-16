@@ -1,0 +1,67 @@
+<head>
+  <style>
+    #range-input {
+      display: none;
+    }
+  </style>
+  <script type="text/javascript">
+    function ToggleTimeRange() {
+      var button = document.getElementById("range");
+      var input = document.getElementById("range-input");
+      if (button.checked == true) {
+        input.style.display = "block";
+      } else {
+        input.style.display = "none";
+      };
+    };
+
+    function ToggleField() {
+      var button = document.getElementById("time");
+      var input = document.getElementById("range-input");
+      if (button.checked == true) {
+        input.style.display = "none";
+      } else {
+        input.style.display = "block";
+      };
+    };
+    function changeradioother(){
+      var other= document.getElementById("other");
+      other.value=document.getElementById("inputother").value;
+    }
+  </script>
+</head>
+
+<body>
+
+
+  <h1>Welcome to UX job search </h1>
+
+  <form action="/job_result" method="POST">
+    Search for UX jobs<br>
+    <br> Keyword: <input type="text" name="keyword" placeholder='UX' /> <br> Country:
+    <br>
+    <input type="radio" name="country" value="all"/> All
+    <input type="radio" name="country" value="US" checked/> United States
+    <input type="radio" name="country" value="UK" /> United Kingdom
+    <input type="radio" name="country" value="China" /> China
+    <input type="radio" name="country" value="India" /> India <br>
+    <input type="radio" name="country" id="other" value="other">Other <input  id="inputother" type="text" onchange="changeradioother()" />
+    <br>
+    <input type="radio" name="time" value="most_recent" id='time' onchange="ToggleField()" checked/>Show most recent 5 jobs
+    <input type="radio" name="time" value="≈" id="range" onchange="ToggleTimeRange()" />Enter a range
+    <br>
+    <div id='range-input'>
+      Enter a time range: From
+      <input type="date" name="start_time"><br> To
+      <input type="date" name="end_time"><br>
+    </div>
+    Job Type:
+    <input type="radio" name="type" value="full_time" checked/>Full Time
+    <input type="radio" name="type" value="freelance" />Freelance
+    <input type="radio" name="type" value="contract" />Contract
+    <input type="radio" name="type" value="internship" />Internship
+    <br>
+    <input type="submit" name="update" value="Update" />
+  </form>
+  <p class='error_msg'>{{error_msg}}</p>
+</body>

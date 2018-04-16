@@ -115,7 +115,6 @@ def populate_database(two_list):
         """
         cur.execute(statement, result)
         conn.commit()
-    print('ok')
     for result in company_data_list:
         statement = """
         INSERT INTO Companies (Id, Name, City, Country, Lat, Lon, CompanySite)
@@ -132,7 +131,40 @@ def populate_database(two_list):
     '''
     cur.execute(statement)
     conn.commit()
-    print('ok')
+
+# Convert date string to standard one
+def convert_date(string):
+    list = string.split(' ')
+    year = list[2]
+    day = list[1][:1]
+    month_dic = {'January': '01','February':'02','March':'03','April':'04','May':'05','June':'06',
+    'July' :'07','August':'08','September':'09','October':'10','November':'11','December':'12'}
+    month = month_dic[list[0]]
+    if len(day) == 1:
+        date_str = year + '-' + month + '-0' + day
+    else:
+        date_str = year + '-' + month + '-' + day
+    return date_str
+
+def update_date_string():
+    statement_original_string = '''
+    SELECT Id, PostDate
+    FROM Jobs
+    '''
+    cur.execute(statement_original_string)
+    iterate_list = []
+    for row in cur:
+        iterate_list.append(row)
+    print(iterate_list)
+    for item in iterate_list:
+
+        statement = "UPDATE Jobs SET PostDate = "
+        statement += '"'+convert_date(item[1])+'"'
+        statement += " WHERE Id = " + str(item[0])
+
+        cur.execute(statement)
+        conn.commit()
+        print('ok')
 
 
 
@@ -140,4 +172,6 @@ def populate_database(two_list):
 if __name__ == "__main__":
     two_list = get_job_and_company_data()
     # create_database()
-    populate_database(two_list)
+    # populate_database(two_list)
+    update_date_string()
+    # print(convert_date('April 1, 2018'))
