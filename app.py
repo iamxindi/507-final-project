@@ -29,13 +29,12 @@ def street():
         lat = 38.9695545, lon = -77)
 
 @app.route('/jobs')
-def job_result():
+def jobs():
     return render_template("jobs.html")
 
 @app.route('/job_result', methods=['GET', 'POST'])
-def jobs():
+def job_result():
     if request.method == 'POST':
-        # session['keyword'] = request.form['keyword']
         keyword = request.form['keyword']
         country = request.form['country']
         time = request.form['time']
@@ -43,14 +42,33 @@ def jobs():
         result = model.search_job(keyword, country, time,type)
     else:
         result = model.search_job()
-        # session['country'] = request.form['country']
-        # session['time'] = request.form['time']
-        # session['type'] =request.form['type']
     return render_template('job_result.html', result=result)
 
 @app.route('/company')
 def company():
     return render_template("company.html")
+
+@app.route('/company_result',methods=['GET', 'POST'])
+def company_r():
+    if request.method == 'POST':
+        keyword = request.form['keyword']
+        country = request.form['country']
+        company_job_dic = model.search_company(keyword, country)
+    else:
+        company_job_dic = model.search_company()
+    return render_template("company_result.html", company_job_dic = company_job_dic)
+
+@app.route('/plot',methods=['GET', 'POST'])
+def plot():
+    if request.method == 'POST':
+        companyname = request.form['companyname']
+        lat = float(request.form['lat'])
+        lon = float(request.form['lon'])
+    else:
+        companyname = ''
+        lat = 0
+        lon = 0
+    return render_template("plot.html", companyname = companyname, lat = lat, lon = lon, api_google = secret.api_google)
 
 
 

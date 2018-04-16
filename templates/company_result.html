@@ -1,12 +1,67 @@
+
+<head>
+  <style>
+  #companyname{
+    color:blue;
+  }
+
+  </style>
+</head>
+
+
+
+<!-- company_job_dic -->
+
 <h1> Company search result </h1>
-<table border=1>
+{% for key,value in company_job_dic.items() %}
+<table border = 1>
+  <tr>
+
+    <span>Company Name: </span> <span id='companyname'>{{key[1]}}          </span>
+
+    <form action = '/plot' method = 'POST'>
+    <input type="hidden" name="companyname" value = {{key[1]}} >
+    <input type="hidden" name="lat" value = {{value[0][4]}} >
+    <input type="hidden" name="lon" value = {{value[0][5]}} >
+    <input type="submit" name="update" value="See on map" />
+  </form>
+  </tr>
+  <tr>
+      <th>Job Title</th>
+      <th>Job Type</th>
+      <th>Country</th>
+      <th>Post Date</th>
+  </tr>
+
+  {% for r in value %}
+
+  <tr>
+      <td>{{r[0]}}</td>
+      <td>{{r[1]}}</td>
+      <td>{{r[2]}}</td>
+      <td>{{r[3]}}</td>
+  </tr>
+  {% endfor %}
+
+</table>
+<br>
+{% endfor %}
+
+<!-- <table border=1>
+  {% for id in company_id_list %}
+
+  <tr>
+    {{id}}
+  </tr>
+
+
     <tr>
         <th>Job Title</th>
         <th>Job Type</th>
         <th>Country</th>
         <th>Post Date</th>
     </tr>
-{% for r in result %}
+    {% for job in company_job_list %}
 
     <tr>
         <td>{{r[0]}}</td>
@@ -14,6 +69,7 @@
         <td>{{r[2]}}</td>
         <td>{{r[3]}}</td>
     </tr>
+    {% endfor %}
 {% endfor %}
 
-</table>
+</table> -->

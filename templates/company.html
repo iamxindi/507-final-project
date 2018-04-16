@@ -1,6 +1,17 @@
+<head>
+  <script type="text/javascript">
+    function changeradioother(){
+      var other= document.getElementById("other");
+      other.value=document.getElementById("inputother").value;
+    }
+  </script>
+</head>
+
+
+<body>
 <h1>Welcome to company search</h1>
 <form action = '/company_result' method = 'POST'>
-  Keyword: <input type="text" name="keyword" placeholder='Enter Keyword for Company Name' /> <br>
+  Company Name: <input type="text" name="keyword" placeholder='Enter Company Name' /> <br>
   Country:
   <br>
   <input type="radio" name="country" value="all"/> All
@@ -10,4 +21,6 @@
   <input type="radio" name="country" value="India" /> India <br>
   <input type="radio" name="country" id="other" value="other">Other <input  id="inputother" type="text" onchange="changeradioother()" />
   <br>
+  <input type="submit" name="update" value="See result" />
 </form>
+</body>

@@ -56,30 +56,51 @@ def search_job(keyword = '', country = 'all', time = "range",jobtype = 'contract
         result.append(row)
     return result
 
-def search_company():
+
+
+def company_jobs(id):
     statement = '''
-    SELECT Companies.Id
+    SELECT Jobs.Title,JobType, Jobs.Country, PostDate, Lat, Lon
     FROM Companies
     JOIN Jobs
     ON Jobs.CompanyId = Companies.Id
-    WHERE Companies.Country LIKE "%India"
+    WHERE  Companies.Id =
     '''
+    statement += str(id)
+    cur.execute(statement)
+    company_job_list = []
+    for row in cur:
+        company_job_list.append(row)
+    return company_job_list
+
+def search_company(keyword = '', country = 'all'):
+    statement = '''
+    SELECT Companies.Id, Companies.Name
+    FROM Companies
+    JOIN Jobs
+    ON Jobs.CompanyId = Companies.Id
+    '''
+    if country != 'all':
+        statement += "WHERE Companies.Country LIKE " + "'%" + country + "'"
+        statement += "AND Companies.Name LIKE" + "'%" + keyword + "%'"
+    else:
+        statement += "WHERE Companies.Name LIKE" + "'%" + keyword + "%'"
 
     cur.execute(statement)
-    company_id_list = []
+    company_job_dic = {}
+    comp_tup_list = []
     for row in cur:
-        company_id_list.append(row[0])
-    for id in company_id_list:
-        statement = '''
-        SELECT Jobs.Title, PostDate
-        FROM Companies
-        JOIN Jobs
-        ON Jobs.CompanyId = Companies.Id
-        WHERE  Companies.Id =
-        '''
-        statement += str(id)
-        cur.execute(statement)
-        for row in cur:
-            print (row)
+        comp_id = row[0]
+        comp_name = row[1]
+        tup = (comp_id, comp_name)
+        comp_tup_list.append(tup)
+    for company_tup in comp_tup_list:
+        comp_id = company_tup[0]
+        job_list = company_jobs(comp_id)
+        company_job_dic[company_tup] = job_list
 
-search_company()
+    return company_job_dic
+# print(company_jobs(12))
+# for key, value in search_company().items():
+#     print(value[0][5])
+#     print("_"*20)
