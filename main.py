@@ -167,8 +167,6 @@ def update_date_string():
         print('ok')
 
 
-
-
 if __name__ == "__main__":
     two_list = get_job_and_company_data()
     # create_database()

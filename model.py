@@ -48,8 +48,6 @@ def search_job(keyword = '', country = 'all', time = "range",jobtype = 'contract
     if time == "most_recent":
         statement += " LIMIT 5"
 
-    # print(statement)
-
     cur.execute(statement)
     result = []
     for row in cur:
@@ -100,7 +98,5 @@ def search_company(keyword = '', country = 'all'):
         company_job_dic[company_tup] = job_list
 
     return company_job_dic
-# print(company_jobs(12))
-# for key, value in search_company().items():
-#     print(value[0][5])
-#     print("_"*20)
+
+# print(search_job())

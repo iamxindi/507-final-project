@@ -37,8 +37,10 @@
   <h1>Welcome to UX job search </h1>
 
   <form action="/job_result" method="POST">
-    Search for UX jobs<br>
-    <br> Keyword: <input type="text" name="keyword" placeholder='Enter Title Keyword' /> <br> Country:
+    <h2>Search for UX jobs</h2><br>
+    <br> Keyword: <input type="text" name="keyword" placeholder='Enter Title Keyword' />
+    <br>
+    Country:
     <br>
     <input type="radio" name="country" value="all"/> All
     <input type="radio" name="country" value="US" checked/> United States
@@ -61,7 +63,8 @@
     <input type="radio" name="type" value="contract" />Contract
     <input type="radio" name="type" value="internship" />Internship
     <br>
-    <input type="submit" name="update" value="Update" />
+    <input type="submit" name="update" value="See result" />
   </form>
   <p class='error_msg'>{{error_msg}}</p>
+
 </body>

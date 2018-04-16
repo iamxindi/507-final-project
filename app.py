@@ -39,10 +39,22 @@ def job_result():
         country = request.form['country']
         time = request.form['time']
         type = request.form['type']
-        result = model.search_job(keyword, country, time,type)
+
+        if time != 'most_recent':
+            start_time = request.form['start_time']
+            end_time = request.form['end_time']
+            result = model.search_job(keyword, country, time,type, start_time, end_time)
+            num = len(result)
+            return render_template('job_result.html', result=result, num = num)
+        else:
+            result = model.search_job(keyword, country, time,type)
+            num = len(result)
+            return render_template('job_result.html', result=result, num = num)
     else:
         result = model.search_job()
-    return render_template('job_result.html', result=result)
+        num = len(result)
+        return render_template('job_result.html', result=result, num=num)
+
 
 @app.route('/company')
 def company():
