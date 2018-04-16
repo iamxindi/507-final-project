@@ -6,7 +6,7 @@ app = Flask(__name__)
 session = {}
 @app.route('/street')
 def street_init():
-    return render_template("map.html", api_google = secret.api_google,
+    return render_template("street.html", api_google = secret.api_google,
     lat = 38.9695545, lon = -77)
 
 
@@ -18,14 +18,14 @@ def street():
             location = model.search_company_lon_lat(companyname)
             lat = location[0]
             lon = location[1]
-            return render_template("map.html", api_google = secret.api_google,
+            return render_template("street.html", api_google = secret.api_google,
             lat = lat, lon = lon, error_msg= '', companyname = companyname)
         except:
             error_msg = 'Please enter valid input.'
-            return render_template("map.html", api_google = secret.api_google,
+            return render_template("street.html", api_google = secret.api_google,
             lat = 38.9695545, lon = -77, error_msg= error_msg, companyname = 'Some random company')
     else:
-        return render_template("map.html", api_google = secret.api_google,
+        return render_template("street.html", api_google = secret.api_google,
         lat = 38.9695545, lon = -77)
 
 @app.route('/jobs')
@@ -47,6 +47,10 @@ def jobs():
         # session['time'] = request.form['time']
         # session['type'] =request.form['type']
     return render_template('job_result.html', result=result)
+
+@app.route('/company')
+def company():
+    return render_template("company.html")
 
 
 

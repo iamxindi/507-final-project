@@ -19,7 +19,7 @@ def search_company_lon_lat(company_name):
 
 def search_job(keyword = '', country = 'all', time = "range",jobtype = 'contract', start_time = "2018-03-01", end_time = "2018-04-30"):
     statement = '''
-    SELECT Title, JobType, Country, PostDate
+    SELECT Title, JobType, Country, PostDate, Id
     FROM Jobs
 
     '''
@@ -56,4 +56,30 @@ def search_job(keyword = '', country = 'all', time = "range",jobtype = 'contract
         result.append(row)
     return result
 
-search_job()
+def search_company():
+    statement = '''
+    SELECT Companies.Id
+    FROM Companies
+    JOIN Jobs
+    ON Jobs.CompanyId = Companies.Id
+    WHERE Companies.Country LIKE "%India"
+    '''
+
+    cur.execute(statement)
+    company_id_list = []
+    for row in cur:
+        company_id_list.append(row[0])
+    for id in company_id_list:
+        statement = '''
+        SELECT Jobs.Title, PostDate
+        FROM Companies
+        JOIN Jobs
+        ON Jobs.CompanyId = Companies.Id
+        WHERE  Companies.Id =
+        '''
+        statement += str(id)
+        cur.execute(statement)
+        for row in cur:
+            print (row)
+
+search_company()
