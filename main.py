@@ -171,5 +171,5 @@ if __name__ == "__main__":
     two_list = get_job_and_company_data()
     # create_database()
     # populate_database(two_list)
-    update_date_string()
+    # update_date_string()
     # print(convert_date('April 1, 2018'))
